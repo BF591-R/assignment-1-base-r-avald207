@@ -18,11 +18,10 @@
 #' less_than_zero(c(-1,0,1,2,3,4))
 #' [1] TRUE FALSE FALSE FALSE FALSE FALSE
 less_than_zero <- function(x) {
-    return(NULL)
+  return(x<0)
 }
-
 #' Evaluate whether the argument is between two numbers
-#'
+#' 
 #' Returns TRUE if the numeric argument x is contained within the open interval
 #' (a, b), otherwise return FALSE.
 #'
@@ -44,7 +43,7 @@ less_than_zero <- function(x) {
 #' [2,]  TRUE FALSE FALSE
 #' [3,] FALSE FALSE FALSE
 is_between <- function(x, a, b) {
-    return(NULL)
+    return(a<x & x<b)
 }
 
 #' Return the values of the input vector that are not NA
@@ -61,7 +60,8 @@ is_between <- function(x, a, b) {
 #' rm_na(x)
 #' [1] 1 2 3
 rm_na <- function(x) {
-    return(NULL)
+  y <- x[!is.na(x)]
+    return(y)
 }
 
 #' Calculate the median of each row of a matrix
@@ -80,7 +80,8 @@ rm_na <- function(x) {
 #' [1] 1 4 7
 #' 
 row_medians <- function(x) {
-    return(NULL)
+  z <- apply(x, 1, median)
+    return(z)
 }
 
 #' Evaluate each row of a matrix with a provided function
@@ -105,8 +106,10 @@ row_medians <- function(x) {
 #' summarize_rows(m, mean)
 #' [1] 2 5 8
 summarize_rows <- function(x, fn, na.rm=FALSE) {
-    return(NULL)
+  a <- apply(x,1,fn)
+  return(a)
 }
+
 
 #' Summarize matrix rows into data frame
 #'
@@ -145,7 +148,17 @@ summarize_rows <- function(x, fn, na.rm=FALSE) {
 #' 3 -0.09040182 1.027559 -0.02774705 -3.026888 2.353087      130              54      0
 #' 4  0.09518138 1.030461  0.11294781 -3.409049 2.544992       90              72      0
 summarize_matrix <- function(x, na.rm=FALSE) {
-    return(NULL)
+    df_baby <- data.frame(
+    mean = apply(x,1,mean),
+    stdev = apply(x,1,sd),
+    median = apply(x,1,median),
+    min = apply(x,1,min),
+    max = apply(x,1,max),
+    num_lt_0 = rowSums(x<0,1),
+    num_btw_1_and_5 = rowSums(1<x & x<5,1),
+    num_na = rowSums(is.na(x),1)
+    )
+  return(df_baby)
 }
 
 # ------------ Helper Functions Used By Assignment, You May Ignore ------------
@@ -164,3 +177,4 @@ simulate_gene_expression <- function(num_samples, num_genes) {
 simulate_gene_expression_w_missing <- function(num_samples, num_genes, missing_frac=0.1) {
     return(NULL)
 }
+
