@@ -196,3 +196,14 @@ from the row vectors prior to computing summarization.
 summary_df <- summarize_matrix(gene_exp, na.rm=TRUE)
 kableExtra::kable(summary_df)
 ```
+
+
+
+
+
+
+
+
+
+
+
